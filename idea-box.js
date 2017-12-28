@@ -3,7 +3,6 @@ var $inputTitle = $('#title');
 var $inputBody = $('#body');
 var inputFields = ('#title, #body');
 var submitButton = $('#submit');
-var searchInput = $('#search');
 var $titleElement = $('.idea-title');
 var $bodyElement = $('.idea-body');
 var ideaTextElements = ('.idea-title, .idea-body');
@@ -35,8 +34,20 @@ $(submitButton).on('click', function(event) {
 });
 
 //Search input keyup
-$(searchInput).on('keyup', function() {
-})
+$('#search').on('keyup', function() {
+  var searchRequest = $('#search').val();
+  $('article').each(function() {
+    var searchResult = $(this).text().indexOf(searchRequest);
+    this.style.display = searchResult > -1 ? "" : "none";
+  })
+});
+
+ function updatedValues (ID, title, body) {
+          id = itemID;
+          title = $title;
+          body = $body;
+          quality = quality;
+      };
 
 //Click on idea title and body elements
 $(bottomSection).on('click', ideaTextElements, function() {
@@ -51,12 +62,6 @@ $(bottomSection).on('click', ideaTextElements, function() {
       } else {
         var $title = $(this).siblings('.idea-title').text();
         var $body = $(this).text();
-      }
-      var updatedValues = {
-          id: itemID,
-          title: $title,
-          body: $body,
-          quality: quality
       }
       var stringifiedUpdatedIdea = JSON.stringify(updatedValues);
       localStorage.setItem(itemID, stringifiedUpdatedIdea);

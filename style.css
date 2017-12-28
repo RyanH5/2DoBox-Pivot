@@ -19,6 +19,10 @@
     min-width: 330px;
     text-align: center;
     width: 100%;
+    position: fixed;
+    top: 0px;
+    z-index: 1;
+    height: 48vh;
   }  
 
   .container {
@@ -90,6 +94,8 @@
     margin: auto;
     min-width: 330px;
     text-align: center;
+    width: 100%;
+    margin-top: 37%;
     width: 100%;
   }
 
