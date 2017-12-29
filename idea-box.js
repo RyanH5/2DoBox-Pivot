@@ -1,8 +1,8 @@
 /*Global variables*/
-var $inputTitle = $('#input-title');
-var $inputBody = $('#input-body');
-var inputFields = ('#input-title, #input-body');
-var submitButton = $('#submit-btn');
+var $inputTitle = $('#title');
+var $inputBody = $('#body');
+var inputFields = ('#title, #body');
+var submitButton = $('#submit');
 var $titleElement = $('.idea-title');
 var $bodyElement = $('.idea-body');
 var ideaTextElements = ('.idea-title, .idea-body');
@@ -16,7 +16,7 @@ var maxID = '';
 /*On load statements*/
 setMaxID();
 loadIdeas();
-$('#input-title').focus();
+$('#title').focus();
 $(submitButton).prop('disabled', true);
 
 /*Event Listeners*/
@@ -34,20 +34,13 @@ $(submitButton).on('click', function(event) {
 });
 
 //Search input keyup
-$('#search-bar').on('keyup', function() {
-  var searchRequest = $('#search-bar').val();
-  $('newArticle').each(function() {
-    var searchResult = $(this).text().indexOf(searchRequest);
-    this.style.display = searchResult > -1 ? "" : "none";
-  })
+$('#search').on('keyup', function() {
+ var searchRequest = $('#search').val();
+ $('article').each(function() {
+   var searchResult = $(this).text().indexOf(searchRequest);
+   this.style.display = searchResult > -1 ? "" : "none";
+ })
 });
-
- function updatedValues (ID, title, body) {
-          id = itemID;
-          title = $title;
-          body = $body;
-          quality = quality;
-      };
 
 //Click on idea title and body elements
 $(bottomSection).on('click', ideaTextElements, function() {
@@ -63,6 +56,12 @@ $(bottomSection).on('click', ideaTextElements, function() {
         var $title = $(this).siblings('.idea-title').text();
         var $body = $(this).text();
       }
+      var updatedValues = {
+          id: itemID,
+          title: $title,
+          body: $body,
+          quality: quality
+      }
       var stringifiedUpdatedIdea = JSON.stringify(updatedValues);
       localStorage.setItem(itemID, stringifiedUpdatedIdea);
       $(this).blur();
@@ -73,7 +72,7 @@ $(bottomSection).on('click', ideaTextElements, function() {
 
 //Delete button click
 $(bottomSection).on('click', '.idea-delete', function () {
-  $(this).parent('newArticle').remove();
+  $(this).parent('article').remove();
   var key = $(this).parent().attr('id');
   localStorage.removeItem(key);
 })
@@ -162,8 +161,8 @@ function loadIdeas() {
     } else if (quality > 1) {
     var qualityDesc = 'Quality: Genius';
     };
-      $('.prepend newArticle').prepend(`
-        <article id = "${id}" quality = "${quality}" class="newArticle">
+      $('.prepend').prepend(`
+        <article id = "${id}" quality = "${quality}">
              <h2 class="idea-title">${title}</h2>
              <input type="image" src="images/delete.svg" class="idea-delete" value="X">
              <p class="idea-body">${body}</p>
@@ -176,7 +175,7 @@ function loadIdeas() {
 };
 
 function toggleButtonDisabled() {
-  if($('#input-title').val() && $('#input-body').val()) {
+  if($('#title').val() && $('#body').val()) {
     $(submitButton).prop('disabled', false);
   } else {
     $(submitButton).prop('disabled', true);
@@ -184,13 +183,13 @@ function toggleButtonDisabled() {
 };
 
 function prependIdeasToList() {
-  var titleInput = $('#input-title').val();
-  var bodyInput = $('#input-body').val();
+  var titleInput = $('#title').val();
+  var bodyInput = $('#body').val();
   setMaxID();
   maxID++;
   setNewIdea();
-  $('.prepend newArticle').prepend(`
-    <article id = ${maxID} quality = "0" class="newArticle">
+  $('.prepend').prepend(`
+    <article id = ${maxID} quality = "0">
         <h2 class="idea-title">${titleInput}</h2>
         <input type="image" src="images/delete.svg" class="idea-delete" value="X">
         <p class="idea-body">${bodyInput}</p>
