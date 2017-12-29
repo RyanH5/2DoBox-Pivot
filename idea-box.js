@@ -204,9 +204,9 @@ function prependIdeasToList() {
 
 function setNewIdea() {
   var newIdeaObject = {
-    id: maxID,
-    title: $inputTitle.val(),
-    body: $inputBody.val(),
+    id: maxID;
+    title: $inputTitle.val();
+    body: $inputBody.val();
     quality: 0
   }
   var stringifiedNewIdeaObject = JSON.stringify(newIdeaObject);
