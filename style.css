@@ -41,17 +41,14 @@
     font-size: 5rem;
     font-weight: 700;
     margin: 15px 0 15px 0;
-  }
-
-  h1 .logo-idea {
     color: #00A79D;
   }
 
-  h1 .logo-box {
+  .h1-style {
     color: #6D6E71;
   }
 
-  #title {
+  #input-title {
     margin-bottom: 1rem;
   }
 
@@ -84,17 +81,18 @@
     padding: 0rem;
   }
 
-  .section-bottom {
+  .prepend,
+  .section-search {
     background-color: #FFFFFF;
     display: block;
     margin: auto;
     min-width: 330px;
     text-align: center;
     width: 100%;
-    overflow: scroll;
+/*    overflow: scroll;*/
   }
 
-  article {
+  .newArticle {
     color: #939598;
     display: inline-block;
     font-size: 1.2rem;
@@ -224,7 +222,7 @@
     margin-bottom: 12px;
   }
 
-  #title {
+  #input-title {
     margin-bottom: 5px;
   }
 
@@ -233,16 +231,16 @@
 
   }
 
-  #title,
-  #body,
-  #submit,
+  #input-title,
+  #input-body,
+  #submit-btn,
   #search {
     height: 43px;
   }
 
   #form,
   #search,
-  article {
+  .newArticle {
     min-width: 300px;
   }
   p.idea-body { 
@@ -268,7 +266,7 @@
     z-index: 1;
   }
 
-  .section-bottom {
+  .section-search {
     margin-top: 280px;
     z-index: 0;
   }
@@ -292,7 +290,7 @@
     position: relative;
   }
 
-  input#body {
+  input#input-body {
     height: 105px;
   }
 
@@ -302,7 +300,7 @@
 
   #form,
   #search,
-  article {
+  .newArticle {
     min-width: 250px;
   }
 
@@ -312,12 +310,12 @@
     width: 10px;
   }
 
-  #title,
+  #input-title,
   #search {
     height: 30px;
   }
 
-  #title::placeholder,
+  #input-title::placeholder,
   #search::placeholder {
     bottom: 50%;
     font-size: 20px;
@@ -328,7 +326,7 @@
     font-size: 20px;
   }
 
-  #submit::placeholder {
+  #submit-btn::placeholder {
     bottom:50%;
     position: relative;
   }

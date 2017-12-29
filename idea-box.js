@@ -1,8 +1,8 @@
 /*Global variables*/
-var $inputTitle = $('#title');
-var $inputBody = $('#body');
-var inputFields = ('#title, #body');
-var submitButton = $('#submit');
+var $inputTitle = $('#input-title');
+var $inputBody = $('#input-body');
+var inputFields = ('#input-title, #input-body');
+var submitBtn = $('#submit-btn');
 var $titleElement = $('.idea-title');
 var $bodyElement = $('.idea-body');
 var ideaTextElements = ('.idea-title, .idea-body');
@@ -10,14 +10,15 @@ var $ideaQualityElement = $('.idea-quality-value');
 var deleteButton = $('.idea-delete');
 var voteUpButton = $('.idea-up');
 var voteDownButton = $('.idea-down');
-var bottomSection = $('.section-bottom');
+var sectionSearch = $('.section-search');
 var maxID = '';
+var prepend = $('.prepend');
 
 /*On load statements*/
 setMaxID();
 loadIdeas();
-$('#title').focus();
-$(submitButton).prop('disabled', true);
+$('#input-title').focus();
+$(submitBtn).prop('disabled', true);
 
 /*Event Listeners*/
 
@@ -27,7 +28,7 @@ $(inputFields).on('keyup', function() {
 })
 
 //Save button click
-$(submitButton).on('click', function(event) { 
+$(submitBtn).on('click', function(event) { 
   event.preventDefault();
   prependIdeasToList();
   $(inputFields).val('');
@@ -36,14 +37,14 @@ $(submitButton).on('click', function(event) {
 //Search input keyup
 $('#search').on('keyup', function() {
  var searchRequest = $('#search').val();
- $('article').each(function() {
+ $('.newArticle').each(function() {
    var searchResult = $(this).text().indexOf(searchRequest);
    this.style.display = searchResult > -1 ? "" : "none";
  })
 });
 
 //Click on idea title and body elements
-$(bottomSection).on('click', ideaTextElements, function() {
+$(prepend).on('click', ideaTextElements, function() {
   $(this).attr('contenteditable','true');
   $(this).keypress(function(event) {
     if(event.which == 13){
@@ -71,14 +72,14 @@ $(bottomSection).on('click', ideaTextElements, function() {
   
 
 //Delete button click
-$(bottomSection).on('click', '.idea-delete', function () {
-  $(this).parent('article').remove();
+$(prepend).on('click', '.idea-delete', function () {
+  $(this).parent('.newArticle').remove();
   var key = $(this).parent().attr('id');
   localStorage.removeItem(key);
 })
 
 //Up vote button click
-$(bottomSection).on('click', '.idea-up', function () {
+$(prepend).on('click', '.idea-up', function () {
   var itemID = $(this).parent().attr('id');
   var title = $(this).siblings('.idea-title').text();
   var body = $(this).siblings('.idea-body').text();
@@ -106,7 +107,7 @@ $(bottomSection).on('click', '.idea-up', function () {
 });
 
 //Down vote click
-$(bottomSection).on('click', '.idea-down', function () {
+$(prepend).on('click', '.idea-down', function () {
   var itemID = $(this).parent().attr('id');
   var title = $(this).siblings('.idea-title').text();
   var body = $(this).siblings('.idea-body').text();
@@ -162,7 +163,7 @@ function loadIdeas() {
     var qualityDesc = 'Quality: Genius';
     };
       $('.prepend').prepend(`
-        <article id = "${id}" quality = "${quality}">
+        <article class="newArticle" id ="${id}" quality="${quality}">
              <h2 class="idea-title">${title}</h2>
              <input type="image" src="images/delete.svg" class="idea-delete" value="X">
              <p class="idea-body">${body}</p>
@@ -175,21 +176,21 @@ function loadIdeas() {
 };
 
 function toggleButtonDisabled() {
-  if($('#title').val() && $('#body').val()) {
-    $(submitButton).prop('disabled', false);
+  if($('#input-title').val() && $('#input-body').val()) {
+    $(submitBtn).prop('disabled', false);
   } else {
-    $(submitButton).prop('disabled', true);
+    $(submitBtn).prop('disabled', true);
   }
 };
 
 function prependIdeasToList() {
-  var titleInput = $('#title').val();
-  var bodyInput = $('#body').val();
+  var titleInput = $('#input-title').val();
+  var bodyInput = $('#input-body').val();
   setMaxID();
   maxID++;
   setNewIdea();
   $('.prepend').prepend(`
-    <article id = ${maxID} quality = "0">
+    <article class="newArticle" id = ${maxID} quality = "0">
         <h2 class="idea-title">${titleInput}</h2>
         <input type="image" src="images/delete.svg" class="idea-delete" value="X">
         <p class="idea-body">${bodyInput}</p>
@@ -198,7 +199,7 @@ function prependIdeasToList() {
         <p class="idea-quality-value">Quality: Swill<p>
         <hr>
     </article>`)
-  $('#title').focus();
+  $('#input-title').focus();
 };
 
 function setNewIdea() {
