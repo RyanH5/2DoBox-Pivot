@@ -34,7 +34,7 @@
     width: 60%;
   }
 
-   #search {
+   #search-bar {
     display: inline-block;
     margin-top: .75em;
     width: 60%;
@@ -47,7 +47,7 @@
     margin: 15px 0 15px 0;
   }
 
-  h1 .logo-idea {
+  .h1-style {
     color: #00A79D;
   }
 
@@ -55,7 +55,7 @@
     color: #6D6E71;
   }
 
-  #title {
+  #input-title {
     margin-bottom: 1rem;
   }
 
@@ -99,7 +99,7 @@
     width: 100%;
   }
 
-  article {
+  .prepend {
     color: #939598;
     display: inline-block;
     font-size: 1.2rem;
@@ -233,20 +233,20 @@
     margin-bottom: 5px;
   }
 
-  #search {
+  #search-bar {
   margin: 15px 0 15px 0;
 
   }
 
-  #title,
-  #body,
-  #submit,
-  #search {
+  #input-title,
+  #input-body,
+  #submit-btn,
+  #search-bar {
     height: 43px;
   }
 
   #form,
-  #search,
+  #search-bar,
   article {
     min-width: 300px;
   }
@@ -300,13 +300,13 @@
   input#body {
     height: 105px;
   }
-
+/*
   #search {
     margin: top;
-  }
+  }*/
 
   #form,
-  #search,
+  #search-bar,
   article {
     min-width: 250px;
   }
@@ -317,13 +317,13 @@
     width: 10px;
   }
 
-  #title,
+  #input-title,
   #search {
     height: 30px;
   }
 
-  #title::placeholder,
-  #search::placeholder {
+  #input-title::placeholder,
+  #search-bar::placeholder {
     bottom: 50%;
     font-size: 20px;
     position: relative;
@@ -333,7 +333,7 @@
     font-size: 20px;
   }
 
-  #submit::placeholder {
+  #submit-btn::placeholder {
     bottom:50%;
     position: relative;
   }
