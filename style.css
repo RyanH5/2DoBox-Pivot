@@ -118,21 +118,21 @@
   }
 
   /*input required here for specificty for right margin*/
-  input.idea-delete {
+  input.delete-btn {
     bottom: 5px;
     float: right;
     margin-right: 0;
     position: relative;
   }
 
-  p.idea-body {
+  p.card-input-body {
     font-size: 2rem;
     font-weight: 400;
     margin: 10px 0;
 
   }
 
-  .idea-delete {
+  .delete-btn {
     background-image: url("images/delete.svg");
     background-repeat: no-repeat;
     border-radius: 20px;
@@ -141,12 +141,12 @@
     width: 20px;
   }
 
-  .idea-delete:hover {
+  .delete-btn:hover {
     background-image:url("images/delete-hover.svg");
     background-repeat: no-repeat;
   }
 
-  .idea-up {
+  .upvote-btn {
     background-image: url("images/upvote.svg");
     background-repeat: no-repeat;
     border-radius: 20px;
@@ -157,12 +157,12 @@
   }
 
 
-  .idea-up:hover {
+  .upvote-btn:hover {
     background-image:url("images/upvote-hover.svg");
     background-repeat: no-repeat;
   }
 
-  .idea-down {
+  .downvote-btn {
     background-image: url("images/downvote.svg");
     background-repeat: no-repeat;
     border-radius: 20px;
@@ -171,7 +171,7 @@
     width: 20px;
   }
 
-  .idea-down:hover {
+  .downvote-btn:hover {
     background-image:url("images/downvote-hover.svg");
     background-repeat: no-repeat;
   }
@@ -184,7 +184,8 @@
     margin: 20px 0;
   }
 
-  .idea-quality-value {
+  .quality-value,
+  .quality-title {
     bottom: 10px;
     display: inline-block;
     position: relative;
@@ -243,17 +244,14 @@
   .newArticle {
     min-width: 300px;
   }
-  p.idea-body { 
+  p.card-input-body { 
   font-size: 24px;
    }
 
-  h2.idea-title {
+  h2.card-input-title {
     font-size: 30px;
   } 
 }
-
-
-
 
 @media only screen and (max-width:320px) {
  
@@ -276,11 +274,11 @@
     margin-bottom: 0;
   }
 
-  p.idea-body { 
+  p.card-input-body { 
   font-size: 20px;
    }
 
-  h2.idea-title {
+  h2.card-input-title {
     font-size: 26px;
   } 
 
@@ -304,9 +302,9 @@
     min-width: 250px;
   }
 
-  .idea-delete,
-  .idea-down,
-  .idea-up {
+  .delete-btn,
+  .downvote-btn,
+  .upvote-btn {
     width: 10px;
   }
 
