@@ -1,8 +1,4 @@
-window.onload = function() {
-  loadCard();
-  $('#input-title').focus();
-  $(submitBtn).prop('disabled', true);
-}
+
 
 /*Global variables*/
 var $inputTitle = $('#input-title');
@@ -66,67 +62,90 @@ $('#search').on('keyup', function() {
 
 
 //Delete button click
-$(prepend).on('click', '.idea-delete', function () {
+$('.prepend').on('click', '.idea-delete', function () {
   $(this).parent('.newArticle').remove();
   var key = $(this).parent().attr('id');
   localStorage.removeItem(key);
 })
 
-//Up vote button click
-$(prepend).on('click', '.idea-up', function () {
-  var itemID = $(this).parent().attr('id');
-  var title = $(this).siblings('.idea-title').text();
-  var body = $(this).siblings('.idea-body').text();
-  var quality = $(this).parent().attr('quality');
-  if (quality < 2) {
-    quality = parseInt(quality) + 1;
-    $(this).parent().attr('quality',quality);
+// upvote button
+
+$('.prepend').on('click', function(e) {
+  var qualityArray = ['swill', 'plausible', 'genius'];
+  if (e.target.className === 'upvote-btn') {
+    if ($(e.target).siblings('.quality-value').text() === 'swill')  {
+      $(e.target).siblings('.quality-value').text(qualityArray[1]);
+    } else if ($(e.target).siblings('.quality-value').text() === 'plausible') {
+      $(e.target).siblings('.quality-value').text(qualityArray[2])
+    }
   }
-  if(quality < 1) {
-    $(this).siblings('.idea-quality-value').text('Quality: Swill');
-  } else if (quality == 1) {
-    $(this).siblings('.idea-quality-value').text('Quality: Plausible');
-  } else if (quality > 1) {
-    $(this).siblings('.idea-quality-value').text('Quality: Genius');
-  };
-  var updatedValues = {
-    id: itemID,
-    title: title,
-    body: body,
-    quality: quality
-  }
-  var stringifiedUpdatedIdea = JSON.stringify(updatedValues);
-  localStorage.setItem(itemID, stringifiedUpdatedIdea);
-  $(this).blur();
 });
 
+// //Up vote button click
+// $(prepend).on('click', '.idea-up', function () {
+//   var itemID = $(this).parent().attr('id');
+//   var title = $(this).siblings('.idea-title').text();
+//   var body = $(this).siblings('.idea-body').text();
+//   var quality = $(this).parent().attr('quality');
+//   if (quality < 2) {
+//     quality = parseInt(quality) + 1;
+//     $(this).parent().attr('quality',quality);
+//   }
+//   if(quality < 1) {
+//     $(this).siblings('.idea-quality-value').text('Quality: Swill');
+//   } else if (quality == 1) {
+//     $(this).siblings('.idea-quality-value').text('Quality: Plausible');
+//   } else if (quality > 1) {
+//     $(this).siblings('.idea-quality-value').text('Quality: Genius');
+//   };
+//   var updatedValues = {
+//     id: itemID,
+//     title: title,
+//     body: body,
+//     quality: quality
+//   }
+//   var stringifiedUpdatedIdea = JSON.stringify(updatedValues);
+//   localStorage.setItem(itemID, stringifiedUpdatedIdea);
+//   $(this).blur();
+// });
+
 //Down vote click
-$(prepend).on('click', '.idea-down', function () {
-  var itemID = $(this).parent().attr('id');
-  var title = $(this).siblings('.idea-title').text();
-  var body = $(this).siblings('.idea-body').text();
-  var quality = $(this).parent().attr('quality');
-  if (quality > 0){
-    quality = parseInt(quality) - 1;
-    $(this).parent().attr('quality',quality);
-  }
-  if(quality < 1){
-    $(this).siblings('.idea-quality-value').text('Quality: Swill');
-  } else if (quality == 1){
-    $(this).siblings('.idea-quality-value').text('Quality: Plausible');
-  } else if (quality > 1){
-    $(this).siblings('.idea-quality-value').text('Quality: Genius');
-  };
-  var updatedValues = {
-    id: itemID,
-    title: title,
-    body: body,
-    quality: quality
-  }
-  var stringifiedUpdatedIdea = JSON.stringify(updatedValues);
-  localStorage.setItem(itemID, stringifiedUpdatedIdea);
-  $(this).blur();
-});
+$('.prepend').on('click', 'downvote-btn', function(e) {
+  var qualityArray = ['swill', 'plausible', 'genius'];
+  // if (e.target.className === 'downvote-btn') {
+    if ($(e.target).siblings('.quality-value').text() === 'genius') {
+      $(e.target).siblings('.quality-value').text(qualityArray[1]);
+    } else if ($(e.target).siblings('.quality-value').text() === 'plausible') {
+      $(e.target).siblings('.quality-value').text(qualityArray[0])
+    }
+  })
+
+// $(prepend).on('click', '.idea-down', function () {
+//   var itemID = $(this).parent().attr('id');
+//   var title = $(this).siblings('.idea-title').text();
+//   var body = $(this).siblings('.idea-body').text();
+//   var quality = $(this).parent().attr('quality');
+//   if (quality > 0){
+//     quality = parseInt(quality) - 1;
+//     $(this).parent().attr('quality',quality);
+//   }
+//   if(quality < 1){
+//     $(this).siblings('.idea-quality-value').text('Quality: Swill');
+//   } else if (quality == 1){
+//     $(this).siblings('.idea-quality-value').text('Quality: Plausible');
+//   } else if (quality > 1){
+//     $(this).siblings('.idea-quality-value').text('Quality: Genius');
+//   };
+//   var updatedValues = {
+//     id: itemID,
+//     title: title,
+//     body: body,
+//     quality: quality
+//   }
+//   var stringifiedUpdatedIdea = JSON.stringify(updatedValues);
+//   localStorage.setItem(itemID, stringifiedUpdatedIdea);
+//   $(this).blur();
+// });
 
 /*Functions*/
 
@@ -138,7 +157,7 @@ function Card (uniqueId, title, body, quality) {
   this.quality = quality;
 };
 
-Card.prototype.prependCard = function() {
+function prependCard (Card) {
   // var titleInput = $('#input-title').val();
   // var bodyInput = $('#input-body').val();
   $('.prepend').prepend(`
@@ -158,14 +177,23 @@ Card.prototype.prependCard = function() {
 function addToStorage(object) {
   var stringObj = JSON.stringify(object);
   localStorage.setItem(object.uniqueId, stringObj);
+
 };
 
 function loadCard() {
   for (i=0; i < localStorage.length; i++) {
     var getObject = localStorage.getItem(localStorage.key(i));
     var loadObject = JSON.parse(getObject);
-    var persistCard = new Card(loadObject.title, loadObject.body, loadObject.uniqueId, loadObject.quality);
+    // var persistCard = new Card(loadObject.title, loadObject.body, loadObject.uniqueId, loadObject.quality);
+    console.log(loadObject);
+    prependCard(loadObject);
   }
+}
+
+window.onload = function() {
+  loadCard();
+  $('#input-title').focus();
+  $(submitBtn).prop('disabled', true);
 }
 
 function toggleButtonDisabled() {
