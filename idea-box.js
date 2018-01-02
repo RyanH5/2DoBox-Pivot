@@ -4,18 +4,10 @@ window.onload = function() {
   $('#submit-btn').prop('disabled', true);
 }
 
-/*Global variables*/
-// var $inputTitle = $('#input-title');
-// var $inputBody = $('#input-body');
-var inputFields = ('#input-title, #input-body');
-// var submitBtn = $('#submit-btn');
-// var sectionSearch = $('.section-search');
-// var prepend = $('.prepend');
-
 /*Event Listeners*/
 
 //Input fields keyup
-$(inputFields).on('keyup', function() {
+$('.input-fields').on('keyup', function() {
   toggleButtonDisabled();
 })
 
@@ -26,7 +18,7 @@ $('#submit-btn').on('click', function(event) {
   prependCard(newCard);
   addToStorage(newCard);
   console.log(newCard)
-  $(inputFields).val('');
+  $('.input-fields').val('');
 });
 
 //Search input keyup
@@ -108,33 +100,6 @@ $('.prepend').on('click', '.downvote-btn', function(e) {
     var stringifyQuality = JSON.stringify(downQualityParse);
     localStorage.setItem(key, stringifyQuality)
   })
-
-// $(prepend).on('click', '.idea-down', function () {
-//   var itemID = $(this).parent().attr('id');
-//   var title = $(this).siblings('.idea-title').text();
-//   var body = $(this).siblings('.idea-body').text();
-//   var quality = $(this).parent().attr('quality');
-//   if (quality > 0){
-//     quality = parseInt(quality) - 1;
-//     $(this).parent().attr('quality',quality);
-//   }
-//   if(quality < 1){
-//     $(this).siblings('.idea-quality-value').text('Quality: Swill');
-//   } else if (quality == 1){
-//     $(this).siblings('.idea-quality-value').text('Quality: Plausible');
-//   } else if (quality > 1){
-//     $(this).siblings('.idea-quality-value').text('Quality: Genius');
-//   };
-//   var updatedValues = {
-//     id: itemID,
-//     title: title,
-//     body: body,
-//     quality: quality
-//   }
-//   var stringifiedUpdatedIdea = JSON.stringify(updatedValues);
-//   localStorage.setItem(itemID, stringifiedUpdatedIdea);
-//   $(this).blur();
-// });
 
 /*Functions*/
 
