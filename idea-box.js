@@ -1,12 +1,16 @@
-
+window.onload = function() {
+  loadCard();
+  $('#input-title').focus();
+  $('#submit-btn').prop('disabled', true);
+}
 
 /*Global variables*/
-var $inputTitle = $('#input-title');
-var $inputBody = $('#input-body');
+// var $inputTitle = $('#input-title');
+// var $inputBody = $('#input-body');
 var inputFields = ('#input-title, #input-body');
-var submitBtn = $('#submit-btn');
-var sectionSearch = $('.section-search');
-var prepend = $('.prepend');
+// var submitBtn = $('#submit-btn');
+// var sectionSearch = $('.section-search');
+// var prepend = $('.prepend');
 
 /*Event Listeners*/
 
@@ -16,11 +20,12 @@ $(inputFields).on('keyup', function() {
 })
 
 //Submit button click
-$(submitBtn).on('click', function(event) { 
+$('#submit-btn').on('click', function(event) { 
   event.preventDefault();
-  var newCard = new Card($inputTitle.val(), $inputBody.val());
-  newCard.prependCard();
+  var newCard = new Card($('#input-title').val(), $('#input-body').val());
+  prependCard(newCard);
   addToStorage(newCard);
+  console.log(newCard)
   $(inputFields).val('');
 });
 
@@ -62,62 +67,46 @@ $('#search').on('keyup', function() {
 
 
 //Delete button click
-$('.prepend').on('click', '.idea-delete', function () {
+$('.prepend').on('click', '.delete-btn', function () {
   $(this).parent('.newArticle').remove();
+  console.log(34)
   var key = $(this).parent().attr('id');
   localStorage.removeItem(key);
 })
 
 // upvote button
 
-$('.prepend').on('click', function(e) {
+$('.prepend').on('click', '.upvote-btn', function(e) {
   var qualityArray = ['swill', 'plausible', 'genius'];
-  if (e.target.className === 'upvote-btn') {
-    if ($(e.target).siblings('.quality-value').text() === 'swill')  {
-      $(e.target).siblings('.quality-value').text(qualityArray[1]);
-    } else if ($(e.target).siblings('.quality-value').text() === 'plausible') {
-      $(e.target).siblings('.quality-value').text(qualityArray[2])
+  var key = $(this).parent().attr('id');
+  var upQuality = localStorage.getItem(key);
+  var upQualityParse = JSON.parse(upQuality);
+    if ($(this).siblings('.quality-value').text() === 'swill')  {
+      $(this).siblings('.quality-value').text(qualityArray[1]);
+      upQualityParse.qualityNumber = 1;
+    } else if ($(this).siblings('.quality-value').text() === 'plausible') {
+      $(this).siblings('.quality-value').text(qualityArray[2])
+      upQualityParse.qualityNumber = 2;
     }
-  }
+    var stringifyQuality = JSON.stringify(upQualityParse);
+    localStorage.setItem(key, stringifyQuality)
 });
 
-// //Up vote button click
-// $(prepend).on('click', '.idea-up', function () {
-//   var itemID = $(this).parent().attr('id');
-//   var title = $(this).siblings('.idea-title').text();
-//   var body = $(this).siblings('.idea-body').text();
-//   var quality = $(this).parent().attr('quality');
-//   if (quality < 2) {
-//     quality = parseInt(quality) + 1;
-//     $(this).parent().attr('quality',quality);
-//   }
-//   if(quality < 1) {
-//     $(this).siblings('.idea-quality-value').text('Quality: Swill');
-//   } else if (quality == 1) {
-//     $(this).siblings('.idea-quality-value').text('Quality: Plausible');
-//   } else if (quality > 1) {
-//     $(this).siblings('.idea-quality-value').text('Quality: Genius');
-//   };
-//   var updatedValues = {
-//     id: itemID,
-//     title: title,
-//     body: body,
-//     quality: quality
-//   }
-//   var stringifiedUpdatedIdea = JSON.stringify(updatedValues);
-//   localStorage.setItem(itemID, stringifiedUpdatedIdea);
-//   $(this).blur();
-// });
-
 //Down vote click
-$('.prepend').on('click', 'downvote-btn', function(e) {
+$('.prepend').on('click', '.downvote-btn', function(e) {
   var qualityArray = ['swill', 'plausible', 'genius'];
-  // if (e.target.className === 'downvote-btn') {
-    if ($(e.target).siblings('.quality-value').text() === 'genius') {
-      $(e.target).siblings('.quality-value').text(qualityArray[1]);
-    } else if ($(e.target).siblings('.quality-value').text() === 'plausible') {
-      $(e.target).siblings('.quality-value').text(qualityArray[0])
+  var key = $(this).parent().attr('id');
+  var downQuality = localStorage.getItem(key);
+  var downQualityParse = JSON.parse(downQuality);
+    if ($(this).siblings('.quality-value').text() === 'genius') {
+      $(this).siblings('.quality-value').text(qualityArray[1]);
+      downQualityParse.qualityNumber = 1;
+    } else if ($(this).siblings('.quality-value').text() === 'plausible') {
+      $(this).siblings('.quality-value').text(qualityArray[0]);
+      downQualityParse.qualityNumber = 0;
     }
+    var stringifyQuality = JSON.stringify(downQualityParse);
+    localStorage.setItem(key, stringifyQuality)
   })
 
 // $(prepend).on('click', '.idea-down', function () {
@@ -150,25 +139,26 @@ $('.prepend').on('click', 'downvote-btn', function(e) {
 /*Functions*/
 
 /*Add Constructor function and prototype with template literal*/
-function Card (uniqueId, title, body, quality) {
+function Card (title, body) {
   this.title = title;
   this.body = body;
-  this.uniqueId = uniqueId || $.now();
-  this.quality = quality;
+  this.uniqueId = $.now();
+  this.quality = ['swill', 'plausible', 'genius'];
+  this.qualityNumber = 0;
 };
 
 function prependCard (Card) {
   // var titleInput = $('#input-title').val();
   // var bodyInput = $('#input-body').val();
   $('.prepend').prepend(`
-    <article class="newArticle" id=${this.uniqueId} >
-    <h2 class="card-input-title">${this.title}</h2>
+    <article class="newArticle" id=${Card.uniqueId} >
+    <h2 class="card-input-title">${Card.title}</h2>
     <input type="image" src="images/delete.svg" class="delete-btn" value="X">
-    <p class="card-input-body">${this.body}</p>
+    <p class="card-input-body">${Card.body}</p>
     <input type="image" src="images/upvote.svg" class="upvote-btn" alt="upvote-button">
     <input type="image" src="images/downvote.svg" class="downvote-btn" alt="downvote-button">
     <p class="quality-title">quality:</p>
-    <p class="quality-value">swill</p>
+    <p class="quality-value">${Card.quality[Card.qualityNumber]}</p>
     <hr>
     </article>`)
   $('#input-title').focus();
@@ -185,21 +175,14 @@ function loadCard() {
     var getObject = localStorage.getItem(localStorage.key(i));
     var loadObject = JSON.parse(getObject);
     // var persistCard = new Card(loadObject.title, loadObject.body, loadObject.uniqueId, loadObject.quality);
-    console.log(loadObject);
     prependCard(loadObject);
   }
 }
 
-window.onload = function() {
-  loadCard();
-  $('#input-title').focus();
-  $(submitBtn).prop('disabled', true);
-}
-
 function toggleButtonDisabled() {
   if($('#input-title').val() && $('#input-body').val()) {
-    $(submitBtn).prop('disabled', false);
+    $('#submit-btn').prop('disabled', false);
   } else {
-    $(submitBtn).prop('disabled', true);
+    $('#submit-btn').prop('disabled', true);
   }
 };
