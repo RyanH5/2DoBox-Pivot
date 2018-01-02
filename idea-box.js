@@ -7,31 +7,45 @@ window.onload = function() {
 /*Event Listeners*/
 
 //Input fields keyup
-$('.input-fields').on('keyup', function() {
-  toggleButtonDisabled();
-})
+$('.input-fields').on('keyup', toggleButtonDisabled);
 
 //Submit button click
-$('#submit-btn').on('click', function(event) { 
+$('#submit-btn').on('click', submitBtn); 
+
+//Search input keyup
+$('#search').on('keyup', searchBar);
+
+// editTitle
+$('.prependCard').on('keyup', '.card-input-title', editTitle);
+
+// editBody
+$('.prependCard').on('keyup', '.card-input-body', editBody);
+
+//Delete button click
+$('.prependCard').on('click', '.delete-btn', deleteBtn);
+
+//Down vote click
+$('.prependCard').on('click', '.downvote-btn', downvoteBtn);
+
+// upvote button
+$('.prependCard').on('click', '.upvote-btn', upvoteBtn);
+
+function submitBtn(event) {
   event.preventDefault();
   var newCard = new Card($('#input-title').val(), $('#input-body').val());
   prependCard(newCard);
   addToStorage(newCard);
   console.log(newCard)
   $('.input-fields').val('');
-});
+};
 
-//Search input keyup
-$('#search').on('keyup', function() {
+function searchBar() {
  var searchRequest = $('#search').val();
  $('.newArticle').each(function() {
    var searchResult = $(this).text().indexOf(searchRequest);
    this.style.display = searchResult > -1 ? "" : "none";
  })
-});
-
-
-$('.prependCard').on('keyup', '.card-input-title', editTitle);
+};
 
 function editTitle (e) {
   var itemId = $(this).parent('.newArticle').attr('id');
@@ -40,26 +54,21 @@ function editTitle (e) {
   addToStorage(parsedContent);
 }
 
-$('.prependCard').on('keyup', '.card-input-body', editBody);
-
 function editBody (e) {
   var itemId = $(this).parent('.newArticle').attr('id');
   var parsedContent = JSON.parse(localStorage.getItem(itemId));
   parsedContent['body'] = $(this).text();
   addToStorage(parsedContent);
-}
+} 
 
-//Delete button click
-$('.prependCard').on('click', '.delete-btn', function () {
+  function deleteBtn() {
   $(this).parent('.newArticle').remove();
   console.log(34)
   var key = $(this).parent().attr('id');
   localStorage.removeItem(key);
-})
+}
 
-// upvote button
-
-$('.prependCard').on('click', '.upvote-btn', function(e) {
+  function upvoteBtn() {
   var qualityArray = ['swill', 'plausible', 'genius'];
   var key = $(this).parent().attr('id');
   var upQuality = localStorage.getItem(key);
@@ -72,10 +81,9 @@ $('.prependCard').on('click', '.upvote-btn', function(e) {
     upQualityParse.qualityNumber = 2;
   }
   addToStorage(upQualityParse);
-});
+};
 
-//Down vote click
-$('.prependCard').on('click', '.downvote-btn', function(e) {
+  function downvoteBtn() {
   var qualityArray = ['swill', 'plausible', 'genius'];
   var key = $(this).parent().attr('id');
   var downQuality = localStorage.getItem(key);
@@ -88,7 +96,7 @@ $('.prependCard').on('click', '.downvote-btn', function(e) {
     downQualityParse.qualityNumber = 0;
   }
   addToStorage(downQualityParse);
-})
+}
 
 /*Functions*/
 
