@@ -180,6 +180,11 @@
     position: relative;
   }
 
+  .strike-through h2,
+  .strike-through p {
+    text-decoration: line-through;
+  }
+
   hr {
     margin: 20px 0;
   }
