@@ -13,7 +13,12 @@ $('.prepend-card').on('click', '.delete-btn', deleteBtn);
 $('.prepend-card').on('click', '.downvote-btn', downvoteBtn);
 $('.prepend-card').on('click', '.upvote-btn', upvoteBtn);
 $('.prepend-card').on('click', '.completed-task', completedTask);
-
+$('.prependCard').on('keyup', '.card-input-title', editTitle);
+$('.prependCard').on('keyup', '.card-input-body', editBody);
+$('.prependCard').on('click', '.delete-btn', deleteBtn);
+$('.prependCard').on('click', '.downvote-btn', downvoteBtn);
+$('.prependCard').on('click', '.upvote-btn', upvoteBtn);
+$('.prependCard').on('click', '.completed-task', completedTask);
 
 function submitBtn(event) {
   event.preventDefault();
@@ -94,6 +99,7 @@ function Card (title, body) {
   this.uniqueId = $.now();
   this.quality = ['swill', 'plausible', 'genius'];
   this.qualityNumber = 0;
+  this.completed = false;
 };
 
 function prependCard (Card) {
@@ -112,16 +118,26 @@ function prependCard (Card) {
   $('#input-title').focus();
 };
 
-$('.prependCard').on('click', '.completed-task', completedTask);
+// function getFromStorage() {
+//   var key = $(this).parent().attr('id');
+//   var get = localStorage.getItem(key);
+//   var parse = JSON.parse(get);
+// }
+
 function completedTask() {
+  // getFromStorage();
+  var key = $(this).parent().attr('id');
+  var completeGet = localStorage.getItem(key);
+  var completeParse = JSON.parse(completeGet);
   $(this).parent().addClass('strike-through');
-  addToStorage(completedTask);
+  completeParse.completed = true;
+  addToStorage(completeParse);
 }
 
 function addToStorage(object) {
   var stringObj = JSON.stringify(object);
   localStorage.setItem(object.uniqueId, stringObj);
-};
+}
 
 function loadCard() {
   for (i=0; i < localStorage.length; i++) {
