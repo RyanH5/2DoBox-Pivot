@@ -127,11 +127,7 @@ function prependCard (Card) {
 $('.prependCard').on('click', '.completed-task', completedTask);
 function completedTask() {
   $(this).parent().addClass('strike-through');
-  // addToStorage(completedTask);
-  // var thing  = $(this).parent().children('h2');
-  // var body = $(this).parent().children('.card-input-body');
-  // thing.addClass('strike-through');
-  // body.addClass('strike-through');
+  addToStorage(completedTask);
 }
 
 function addToStorage(object) {
