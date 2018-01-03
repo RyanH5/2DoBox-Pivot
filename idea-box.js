@@ -112,6 +112,12 @@ function prependCard (Card) {
   $('#input-title').focus();
 };
 
+$('.prependCard').on('click', '.completed-task', completedTask);
+function completedTask() {
+  $(this).parent().addClass('strike-through');
+  addToStorage(completedTask);
+}
+
 function addToStorage(object) {
   var stringObj = JSON.stringify(object);
   localStorage.setItem(object.uniqueId, stringObj);

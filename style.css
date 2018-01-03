@@ -22,10 +22,43 @@
     width: 60%;
   }
 
-   #search {
-    display: inline-block;
-    margin-top: .75em;
+  #search {
+    display: block;
+    margin: .75em auto 0.2em auto;
     width: 60%;
+  }
+
+  .importance-btn {
+  font-size: 14px;
+  padding: 1%;
+  border-radius: 58%;
+  margin: 1%;
+  opacity: .6;
+  }
+
+  .importance-btn:hover {
+    /*border: 1px solid black;*/
+    opacity: 1;
+  }
+
+  #critical {
+    background-color: red;
+  }
+
+  #high {
+    background-color: orange;
+  }
+
+  #normal {
+    background-color: green;
+  }
+
+  #low {
+    background-color: yellow;
+  }
+
+  #none {
+    background-color: magenta;
   }
 
   h1 {
@@ -196,6 +229,10 @@
 
 
 @media screen and (max-width: 720px) {
+
+  .section-top {
+    height: 42vh;
+  }
   
 
   h1{
@@ -223,8 +260,10 @@
   }
 
   #search {
-  margin: 15px 0 15px 0;
-
+    min-width: 300px;
+    display: block;
+    margin: .75em auto 0.2em auto;
+    width: 60%;
   }
 
   #input-title,
