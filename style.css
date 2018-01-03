@@ -6,28 +6,19 @@
 
   body {
     font-family: "Open Sans", sans-serif;
-    font-weight: 400;
     font-size: 10px;
   }
 
   /*Top section of page*/
-
-    .section-top {
+  .section-top {
     background-color: #e5f3f2;
-    display: block;
-    margin: auto;
-    min-width: 330px;
-    text-align: center;
-    width: 100%;
-    height: 56vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }  
 
   .container {
-    display: block;
-  }
-
-  #form {
-    display: inline-block;
+    align-self: center;
     width: 60%;
   }
 
@@ -73,19 +64,14 @@
   h1 {
     font-family: "Roboto Slab", serif;
     font-size: 5rem;
-    font-weight: 700;
     margin: 15px 0 15px 0;
     color: #00A79D;
+    text-align: center;
   }
 
   .h1-style {
     color: #6D6E71;
   }
-
-  #input-title {
-    margin-bottom: 1rem;
-  }
-
 
   input {
     border: 1px solid #939598;
@@ -115,7 +101,11 @@
     padding: 0rem;
   }
 
-  .prependCard,
+  #show-completed {
+    background-color: #00A786;
+  }
+
+  .prepend-card,
   .section-search {
     background-color: #FFFFFF;
     display: block;
@@ -123,7 +113,6 @@
     min-width: 330px;
     text-align: center;
     width: 100%;
-/*    overflow: scroll;*/
   }
 
   .newArticle {
@@ -151,12 +140,12 @@
 
   }
 
-  /*input required here for specificty for right margin*/
+  /*input required here for specificity for right margin*/
   input.delete-btn {
+    position: relative;
     bottom: 5px;
     float: right;
     margin-right: 0;
-    position: relative;
   }
 
   p.card-input-body {
@@ -284,7 +273,6 @@
     height: 43px;
   }
 
-  #form,
   #search,
   .newArticle {
     min-width: 300px;
@@ -341,7 +329,6 @@
     margin: top;
   }
 
-  #form,
   #search,
   .newArticle {
     min-width: 250px;

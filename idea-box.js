@@ -4,31 +4,16 @@ window.onload = function() {
   $('#submit-btn').prop('disabled', true);
 }
 
-/*Event Listeners*/
-
-//Input fields keyup
 $('.input-fields').on('keyup', toggleButtonDisabled);
-
-//Submit button click
 $('#submit-btn').on('click', submitBtn); 
-
-//Search input keyup
 $('#search').on('keyup', searchBar);
+$('.prepend-card').on('keyup', '.card-input-title', editTitle);
+$('.prepend-card').on('keyup', '.card-input-body', editBody);
+$('.prepend-card').on('click', '.delete-btn', deleteBtn);
+$('.prepend-card').on('click', '.downvote-btn', downvoteBtn);
+$('.prepend-card').on('click', '.upvote-btn', upvoteBtn);
+$('.prepend-card').on('click', '.completed-task', completedTask);
 
-// editTitle
-$('.prependCard').on('keyup', '.card-input-title', editTitle);
-
-// editBody
-$('.prependCard').on('keyup', '.card-input-body', editBody);
-
-//Delete button click
-$('.prependCard').on('click', '.delete-btn', deleteBtn);
-
-//Down vote click
-$('.prependCard').on('click', '.downvote-btn', downvoteBtn);
-
-// upvote button
-$('.prependCard').on('click', '.upvote-btn', upvoteBtn);
 
 function submitBtn(event) {
   event.preventDefault();
@@ -47,14 +32,14 @@ function searchBar() {
  })
 };
 
-function editTitle (e) {
+function editTitle () {
   var itemId = $(this).parent('.newArticle').attr('id');
   var parsedContent = JSON.parse(localStorage.getItem(itemId));
   parsedContent['title'] = $(this).text();
   addToStorage(parsedContent);
 }
 
-function editBody (e) {
+function editBody () {
   var itemId = $(this).parent('.newArticle').attr('id');
   var parsedContent = JSON.parse(localStorage.getItem(itemId));
   parsedContent['body'] = $(this).text();
@@ -63,9 +48,14 @@ function editBody (e) {
 
   function deleteBtn() {
   $(this).parent('.newArticle').remove();
-  console.log(34)
   var key = $(this).parent().attr('id');
   localStorage.removeItem(key);
+}
+
+function completedTask() {
+  var strikeThru = $(this).parent().addClass('strike-through');
+  var taskParse = JSON.parse(localStorage.getItem(strikeThru));
+  addToStorage(taskParse);
 }
 
   function upvoteBtn() {
@@ -98,8 +88,6 @@ function editBody (e) {
   addToStorage(downQualityParse);
 }
 
-/*Functions*/
-
 function Card (title, body) {
   this.title = title;
   this.body = body;
@@ -109,7 +97,7 @@ function Card (title, body) {
 };
 
 function prependCard (Card) {
-  $('.prependCard').prepend(`
+  $('.prepend-card').prepend(`
     <article class="newArticle" id=${Card.uniqueId}>
     <h2 class="card-input-title" contenteditable="true">${Card.title}</h2>
     <input type="image" src="images/delete.svg" class="delete-btn" value="X">
