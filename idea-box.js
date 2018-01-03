@@ -7,6 +7,7 @@ window.onload = function() {
 $('.input-fields').on('keyup', toggleButtonDisabled);
 $('#submit-btn').on('click', submitBtn); 
 $('#search').on('keyup', searchBar);
+$('#show-completed').on('click', loadAllCards);
 $('.prepend-card').on('keyup', '.card-input-title', editTitle);
 $('.prepend-card').on('keyup', '.card-input-body', editBody);
 $('.prepend-card').on('click', '.delete-btn', deleteBtn);
@@ -15,10 +16,6 @@ $('.prepend-card').on('click', '.upvote-btn', upvoteBtn);
 $('.prepend-card').on('click', '.completed-task', completedTask);
 $('.prependCard').on('keyup', '.card-input-title', editTitle);
 $('.prependCard').on('keyup', '.card-input-body', editBody);
-$('.prependCard').on('click', '.delete-btn', deleteBtn);
-$('.prependCard').on('click', '.downvote-btn', downvoteBtn);
-$('.prependCard').on('click', '.upvote-btn', upvoteBtn);
-$('.prependCard').on('click', '.completed-task', completedTask);
 
 function submitBtn(event) {
   event.preventDefault();
@@ -118,20 +115,18 @@ function prependCard (Card) {
   $('#input-title').focus();
 };
 
-// function getFromStorage() {
-//   var key = $(this).parent().attr('id');
-//   var get = localStorage.getItem(key);
-//   var parse = JSON.parse(get);
-// }
+function getFromStorage(key) {
+  var toDo = localStorage.getItem(key);
+  var parsedToDo = JSON.parse(toDo);
+  return parsedToDo;
+}
 
 function completedTask() {
-  // getFromStorage();
   var key = $(this).parent().attr('id');
-  var completeGet = localStorage.getItem(key);
-  var completeParse = JSON.parse(completeGet);
+  var parsedToDo = getFromStorage(key);
   $(this).parent().addClass('strike-through');
-  completeParse.completed = true;
-  addToStorage(completeParse);
+  parsedToDo.completed = true;
+  addToStorage(parsedToDo);
 }
 
 function addToStorage(object) {
@@ -139,11 +134,25 @@ function addToStorage(object) {
   localStorage.setItem(object.uniqueId, stringObj);
 }
 
-function loadCard() {
-  for (i=0; i < localStorage.length; i++) {
+function loadAllCards(event) {
+  event.preventDefault();
+  for (var i = 0; i < localStorage.length; i++) {
     var getObject = localStorage.getItem(localStorage.key(i));
     var loadObject = JSON.parse(getObject);
-    prependCard(loadObject);
+    if (loadObject.completed === true) {
+      prependCard(loadObject);
+      $(`#${loadObject.uniqueId}`).addClass('strike-through');
+    }
+  }
+}
+
+function loadCard() {
+  for (var i = 0; i < localStorage.length; i++) {
+    var getObject = localStorage.getItem(localStorage.key(i));
+    var loadObject = JSON.parse(getObject);
+    if (loadObject.completed === false) {
+      prependCard(loadObject);
+    }
   }
 }
 
@@ -153,4 +162,4 @@ function toggleButtonDisabled() {
   } else {
     $('#submit-btn').prop('disabled', true);
   }
-};
+}
