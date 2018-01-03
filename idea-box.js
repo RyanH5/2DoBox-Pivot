@@ -4,31 +4,24 @@ window.onload = function() {
   $('#submit-btn').prop('disabled', true);
 }
 
-/*Event Listeners*/
-
-//Input fields keyup
 $('.input-fields').on('keyup', toggleButtonDisabled);
 
-//Submit button click
+
 $('#submit-btn').on('click', submitBtn); 
 
-//Search input keyup
 $('#search').on('keyup', searchBar);
 
-// editTitle
 $('.prependCard').on('keyup', '.card-input-title', editTitle);
 
-// editBody
 $('.prependCard').on('keyup', '.card-input-body', editBody);
 
-//Delete button click
 $('.prependCard').on('click', '.delete-btn', deleteBtn);
 
-//Down vote click
 $('.prependCard').on('click', '.downvote-btn', downvoteBtn);
 
-// upvote button
 $('.prependCard').on('click', '.upvote-btn', upvoteBtn);
+
+$('.prependCard').on('click', '.completed-task', completedTask);
 
 function submitBtn(event) {
   event.preventDefault();
@@ -98,7 +91,6 @@ function editBody (e) {
   addToStorage(downQualityParse);
 }
 
-/*Functions*/
 
 function Card (title, body) {
   this.title = title;
@@ -106,6 +98,7 @@ function Card (title, body) {
   this.uniqueId = $.now();
   this.quality = ['swill', 'plausible', 'genius'];
   this.qualityNumber = 0;
+  this.completed = false;
 };
 
 function prependCard (Card) {
@@ -124,16 +117,26 @@ function prependCard (Card) {
   $('#input-title').focus();
 };
 
-$('.prependCard').on('click', '.completed-task', completedTask);
+// function getFromStorage() {
+//   var key = $(this).parent().attr('id');
+//   var get = localStorage.getItem(key);
+//   var parse = JSON.parse(get);
+// }
+
 function completedTask() {
+  // getFromStorage();
+  var key = $(this).parent().attr('id');
+  var completeGet = localStorage.getItem(key);
+  var completeParse = JSON.parse(completeGet);
   $(this).parent().addClass('strike-through');
-  addToStorage(completedTask);
+  completeParse.completed = true;
+  addToStorage(completeParse);
 }
 
 function addToStorage(object) {
   var stringObj = JSON.stringify(object);
   localStorage.setItem(object.uniqueId, stringObj);
-};
+}
 
 function loadCard() {
   for (i=0; i < localStorage.length; i++) {
