@@ -118,10 +118,21 @@ function prependCard (Card) {
     <input type="image" src="images/downvote.svg" class="downvote-btn" alt="downvote-button">
     <p class="quality-title">quality:</p>
     <p class="quality-value">${Card.quality[Card.qualityNumber]}</p>
+    <button class="completed-task">Completed Task</button>
     <hr>
     </article>`)
   $('#input-title').focus();
 };
+
+$('.prependCard').on('click', '.completed-task', completedTask);
+function completedTask() {
+  $(this).parent().addClass('strike-through');
+  // addToStorage(completedTask);
+  // var thing  = $(this).parent().children('h2');
+  // var body = $(this).parent().children('.card-input-body');
+  // thing.addClass('strike-through');
+  // body.addClass('strike-through');
+}
 
 function addToStorage(object) {
   var stringObj = JSON.stringify(object);
