@@ -1,363 +1,222 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  body {
-    font-family: "Open Sans", sans-serif;
-    font-size: 10px;
-  }
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 10px;
+}
 
-  /*Top section of page*/
-  .section-top {
-    background-color: #e5f3f2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }  
+/*Top section of page*/
+.section-top {
+  background-color: #e5f3f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}  
 
-  .container {
-    align-self: center;
-    width: 60%;
-  }
+.container {
+  width: 60%;
+}
 
-  #search {
-    display: block;
-    margin: .75em auto 0.2em auto;
-    width: 60%;
-  }
+h1 {
+  font-family: "Roboto Slab", serif;
+  font-size: 5rem;
+  margin: 15px 0 15px 0;
+  color: #00A79D;
+  text-align: center;
+}
 
-  .importance-btn {
+.h1-style {
+  color: #6D6E71;
+}
+
+input {
+  border: 1px solid #939598;
+  color: #939598;
+  font-size: 2rem;
+  font-weight: 600;
+  height: 3rem;
+  margin: .5rem 0 0.5rem 0;
+  padding: 1rem;
+  width: 100%;
+}
+
+input::placeholder {
+  color: #D1D2D4;
+  font-size: 2rem;
+}
+
+.search-bar {
+  width: 100%;
+  margin-left: 12.5rem;
+}
+
+#search,
+#show-completed {
+  width: 60%;
+  margin-left: 11.7rem;
+}
+
+.impt-btn-container {
+  margin-left: 17.5rem;
+}
+
+.importance-btn {
   font-size: 14px;
   padding: 1%;
   border-radius: 58%;
   margin: 1%;
   opacity: .6;
-  }
-
-  .importance-btn:hover {
-    /*border: 1px solid black;*/
-    opacity: 1;
-  }
-
-  #critical {
-    background-color: red;
-  }
-
-  #high {
-    background-color: orange;
-  }
-
-  #normal {
-    background-color: green;
-  }
-
-  #low {
-    background-color: yellow;
-  }
-
-  #none {
-    background-color: magenta;
-  }
-
-  h1 {
-    font-family: "Roboto Slab", serif;
-    font-size: 5rem;
-    margin: 15px 0 15px 0;
-    color: #00A79D;
-    text-align: center;
-  }
-
-  .h1-style {
-    color: #6D6E71;
-  }
-
-  input {
-    border: 1px solid #939598;
-    color: #939598;
-    font-size: 2rem;
-    font-weight: 600;
-    height: 3rem;
-    margin: .5rem 0 0.5rem 0;
-    padding: 1rem;
-    width: 100%;
-  }
-
-  input::placeholder {
-    color: #D1D2D4;
-    font-size: 2rem;
-
-  }
-
-  input[type="submit"]{
-    background-color: #00a79d;
-    border: none;
-    color: white;
-    font-size: 2rem;
-    font-weight: 400;
-    letter-spacing: 1.5px;
-    margin-bottom: 1.2rem;
-    padding: 0rem;
-  }
-
-  #show-completed {
-    background-color: #00A786;
-  }
-
-  .prepend-card,
-  .section-search {
-    background-color: #FFFFFF;
-    display: block;
-    margin: auto;
-    min-width: 330px;
-    text-align: center;
-    width: 100%;
-  }
-
-  .newArticle {
-    color: #939598;
-    display: inline-block;
-    font-size: 1.2rem;
-    text-align: left;
-    width: 60%;
-  }
-
-  h2 {
-    color: #6D6E71;
-    display: inline-block;
-    font-family: "Roboto Slab", serif;
-    font-size: 2rem;
-    margin: 0;
-  }
-
-  input[type="image"] {
-    border-style: none;
-    display: inline-block;
-    height: 2rem;
-    margin: 1rem 1rem 0 0;
-    width: 2rem;
-
-  }
-
-  /*input required here for specificity for right margin*/
-  input.delete-btn {
-    position: relative;
-    bottom: 5px;
-    float: right;
-    margin-right: 0;
-  }
-
-  p.card-input-body {
-    font-size: 2rem;
-    font-weight: 400;
-    margin: 10px 0;
-
-  }
-
-  .delete-btn {
-    background-image: url("images/delete.svg");
-    background-repeat: no-repeat;
-    border-radius: 20px;
-    border: none;
-    height: 20px;
-    width: 20px;
-  }
-
-  .delete-btn:hover {
-    background-image:url("images/delete-hover.svg");
-    background-repeat: no-repeat;
-  }
-
-  .upvote-btn {
-    background-image: url("images/upvote.svg");
-    background-repeat: no-repeat;
-    border-radius: 20px;
-    border: none;
-    height: 20px;
-    margin-bottom: 0;
-    width: 20px;
-  }
-
-
-  .upvote-btn:hover {
-    background-image:url("images/upvote-hover.svg");
-    background-repeat: no-repeat;
-  }
-
-  .downvote-btn {
-    background-image: url("images/downvote.svg");
-    background-repeat: no-repeat;
-    border-radius: 20px;
-    border: none;
-    height: 20px;
-    width: 20px;
-  }
-
-  .downvote-btn:hover {
-    background-image:url("images/downvote-hover.svg");
-    background-repeat: no-repeat;
-  }
-
-  .button-box {
-    position: relative;
-  }
-
-  .strike-through h2,
-  .strike-through p {
-    text-decoration: line-through;
-  }
-
-  hr {
-    margin: 20px 0;
-  }
-
-  .quality-value,
-  .quality-title {
-    bottom: 10px;
-    display: inline-block;
-    position: relative;
-  }
-
-
-  h3 {
-    display: inline-block;
-    font-size: 1rem;
-    vertical-align: middle;
-  }
-
-
-
-@media screen and (max-width: 720px) {
-
-  .section-top {
-    height: 42vh;
-  }
-  
-
-  h1{
-    font-size: 2.8rem;
-    margin: 10px 0 10px 0;
-  }
-
-  input {
-    font-size: 1rem;
-    height: 2.3rem;
-    margin-bottom: 4px; 
-    padding: 24px 0 14px 10px;
-  }
-
-  input::placeholder { 
-    font-size: 25px;
-  }
-
-  input[type="submit"]{
-    margin-bottom: 12px;
-  }
-
-  #input-title {
-    margin-bottom: 5px;
-  }
-
-  #search {
-    min-width: 300px;
-    display: block;
-    margin: .75em auto 0.2em auto;
-    width: 60%;
-  }
-
-  #input-title,
-  #input-body,
-  #submit-btn,
-  #search {
-    height: 43px;
-  }
-
-  #search,
-  .newArticle {
-    min-width: 300px;
-  }
-  p.card-input-body { 
-  font-size: 24px;
-   }
-
-  h2.card-input-title {
-    font-size: 30px;
-  } 
 }
 
-@media only screen and (max-width:320px) {
- 
-  .section-top{
-    height: 249px;
-    min-height: 49.5%;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1;
-  }
+.importance-btn:hover {
+  opacity: 1;
+}
 
-  .section-search {
-    margin-top: 280px;
-    z-index: 0;
+#critical {
+  background-color: red;
+}
+
+#high {
+  background-color: orange;
+}
+
+#normal {
+  background-color: green;
+}
+
+#low {
+  background-color: yellow;
+}
+
+#none {
+  background-color: magenta;
+}
+
+input[type="submit"] {
+  background-color: #00A79D;
+  color: #FFFFFF;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  margin-bottom: 1.2rem;
+  padding: 0rem;
+}
+
+#show-completed {
+  background-color: #00A786;
+  width: 60%;
+}
+
+.prepend-card,
+.section-search {
+ display: flex;
+ align-items: center;
+ flex-direction: column;
+}
+
+.newArticle {
+  color: #939598;
+  font-size: 1.2rem;
+  position: relative;
+  width: 60%;
+}
+
+h2 {
+  color: #6D6E71;
+  font-family: "Roboto Slab", serif;
+  font-size: 2rem;
+}
+
+input[type="image"] {
+  border-style: none;
+  height: 2rem;
+  margin: 1rem 1rem 0 0;
+  width: 2rem;
+
+}
+
+.delete-btn {
+  background-image: url("images/delete.svg");
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+}
+
+.delete-btn:hover {
+  background-image:url("images/delete-hover.svg");
+  background-repeat: no-repeat;
+}
+
+.card-input-body {
+  font-size: 2rem;
+  margin: 10px 0;
+}
+
+.upvote-btn {
+  background-image: url("images/upvote.svg");
+}
+
+.upvote-btn:hover {
+  background-image:url("images/upvote-hover.svg");
+  background-repeat: no-repeat;
+}
+
+.downvote-btn {
+  background-image: url("images/downvote.svg");
+}
+
+.downvote-btn:hover {
+  background-image:url("images/downvote-hover.svg");
+  background-repeat: no-repeat;
+}
+
+.completed-task {
+  display: flex;
+  margin: 1rem 0 0 .2rem;
+  width: 16%;
+  font-size: 1rem;
+  color: #FFFFFF;
+  background-color: #0E76AA;
+  padding: .5rem;
+  text-align: center;
+}
+
+hr {
+  margin: 1rem 0;
+}
+
+.impt-value,
+.impt-title {
+  bottom: 10px;
+  display: inline-block;
+  position: relative;
+}
+
+h3 {
+  display: inline-block;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+.strike-through h2,
+.strike-through p {
+  text-decoration: line-through;
+}
+
+@media screen and (max-width: 320px) {
+  .section-top {
+    width: 138%;
   }
 
   h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0;
+    font-size: 4.4rem;
   }
 
-  p.card-input-body { 
-  font-size: 20px;
-   }
-
-  h2.card-input-title {
-    font-size: 26px;
-  } 
-
-  input::placeholder {
-    bottom: 60%;
-    font-size: 20px;
-    position: relative;
-  }
-
-  input#input-body {
-    height: 105px;
-  }
-
-  #search {
-    margin: top;
-  }
-
-  #search,
   .newArticle {
-    min-width: 250px;
-  }
-
-  .delete-btn,
-  .downvote-btn,
-  .upvote-btn {
-    width: 10px;
-  }
-
-  #input-title,
-  #search {
-    height: 30px;
-  }
-
-  #input-title::placeholder,
-  #search::placeholder {
-    bottom: 50%;
-    font-size: 20px;
-    position: relative;
-  }
-
-   input[type="submit"]{
-    font-size: 20px;
-  }
-
-  #submit-btn::placeholder {
-    bottom:50%;
-    position: relative;
+    width: 100%;
+    margin-left: 7rem;
   }
 }

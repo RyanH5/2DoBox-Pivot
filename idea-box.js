@@ -78,9 +78,9 @@ function changeVote(changeImportance, newIndex) {
   var key = $(changeImportance).parent().attr('id');
   var upQuality = localStorage.getItem(key);
   var upQualityParse = JSON.parse(upQuality);
-   upQualityParse.qualityNumber = upQualityParse.qualityNumber + newIndex;
-  $(changeImportance).siblings('.quality-value').text(upQualityParse.quality[upQualityParse.qualityNumber]);
-    return upQualityParse;
+  upQualityParse.qualityNumber = upQualityParse.qualityNumber + newIndex;
+  $(changeImportance).siblings('.impt-value').text(upQualityParse.quality[upQualityParse.qualityNumber]);
+  return upQualityParse;
 }
 
 function deleteBtn() {
@@ -107,8 +107,8 @@ function prependCard (Card) {
     <p class="card-input-body" contenteditable="true">${Card.body}</p>
     <input type="image" src="images/upvote.svg" class="upvote-btn" alt="upvote-button">
     <input type="image" src="images/downvote.svg" class="downvote-btn" alt="downvote-button">
-    <p class="quality-title">importance:</p>
-    <p class="quality-value">${Card.quality[Card.qualityNumber]}</p>
+    <p class="impt-title">importance:</p>
+    <p class="impt-value">${Card.quality[Card.qualityNumber]}</p>
     <button class="completed-task">Completed Task</button>
     <hr>
     </article>`)
@@ -124,7 +124,7 @@ function getFromStorage(key) {
 function recentToDos() {
   if (localStorage.length > 10) {
     $('.newArticle').hide();
-      console.log($('.newArticle').hide());
+    console.log($('.newArticle').hide());
     (`<button class="show-more">Show more TODOs</button>`);
   }
 }
