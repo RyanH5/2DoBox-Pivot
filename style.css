@@ -50,18 +50,17 @@ input::placeholder {
 }
 
 .search-bar {
-  width: 100%;
-  margin-left: 12.5rem;
+  width: 60%;
 }
 
 #search,
 #show-completed {
-  width: 60%;
-  margin-left: 11.7rem;
+  width: 100%;
 }
 
 .impt-btn-container {
-  margin-left: 17.5rem;
+  display: flex;
+  justify-content: center;
 }
 
 .importance-btn {
@@ -107,10 +106,17 @@ input[type="submit"] {
 
 #show-completed {
   background-color: #00A786;
-  width: 60%;
+  font-size: 1rem;
 }
 
-.prepend-card,
+.prepend-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+
 .section-search {
  display: flex;
  align-items: center;
@@ -176,7 +182,6 @@ input[type="image"] {
 .completed-task {
   display: flex;
   margin: 1rem 0 0 .2rem;
-  width: 16%;
   font-size: 1rem;
   color: #FFFFFF;
   background-color: #0E76AA;
@@ -218,5 +223,9 @@ h3 {
   .newArticle {
     width: 100%;
     margin-left: 7rem;
+  }
+
+  #show-completed {
+    font-size: 1rem;
   }
 }
