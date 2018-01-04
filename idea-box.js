@@ -16,6 +16,7 @@ $('.prepend-card').on('click', '.upvote-btn', upvoteBtn);
 $('.prepend-card').on('click', '.completed-task', completedTask);
 $('.prependCard').on('keyup', '.card-input-title', editTitle);
 $('.prependCard').on('keyup', '.card-input-body', editBody);
+// $('.prependCard').on('click', '.show-more', recentToDos);
 
 function submitBtn(event) {
   event.preventDefault();
@@ -54,52 +55,29 @@ function deleteBtn() {
   localStorage.removeItem(key);
 }
 
-function completedTask() {
-  var strikeThru = $(this).parent().addClass('strike-through');
-  var taskParse = JSON.parse(localStorage.getItem(strikeThru));
-  addToStorage(taskParse);
+function upvoteBtn() {
+  var bubbleupvote = this;
+  var upQualityParse = changeVote(bubbleupvote, 1);
+  addToStorage(upQualityParse);
 }
 
-function upvoteBtn() {
-  var qualityArray = ['none', 'low', 'normal', 'high', 'critical'];
-  var key = $(this).parent().attr('id');
+function downvoteBtn() {
+  var bubbledownvote = this;
+  var upQualityParse = changeVote(bubbledownvote, -1);
+  addToStorage(upQualityParse);
+}
+
+function changeVote(bubblevote, newIndex) {
+  var key = $(bubblevote).parent().attr('id');
   var upQuality = localStorage.getItem(key);
   var upQualityParse = JSON.parse(upQuality);
-  if ($(this).siblings('.quality-value').text() === 'none')  {
-    $(this).siblings('.quality-value').text(qualityArray[1]);
-    upQualityParse.qualityNumber = 1;
-  } else if ($(this).siblings('.quality-value').text() === 'low') {
-    $(this).siblings('.quality-value').text(qualityArray[2])
-    upQualityParse.qualityNumber = 2;
-  } else if ($(this).siblings('.quality-value').text() === 'normal') {
-    $(this).siblings('.quality-value').text(qualityArray[3])
-    upQualityParse.qualityNumber = 3;
-  } else if ($(this).siblings('.quality-value').text() === 'high') {
-    $(this).siblings('.quality-value').text(qualityArray[4])
-    upQualityParse.qualityNumber = 4;
-  }
-addToStorage(upQualityParse);
-};
-
-function downvoteBtn() {
-  var qualityArray = ['none', 'low', 'normal', 'high', 'critical'];
-  var key = $(this).parent().attr('id');
-  var downQuality = localStorage.getItem(key);
-  var downQualityParse = JSON.parse(downQuality);
-  if ($(this).siblings('.quality-value').text() === 'critical') {
-    $(this).siblings('.quality-value').text(qualityArray[3]);
-    downQualityParse.qualityNumber = 3;
-  } else if ($(this).siblings('.quality-value').text() === 'high') {
-    $(this).siblings('.quality-value').text(qualityArray[2]);
-    downQualityParse.qualityNumber = 2;
-  } else if ($(this).siblings('.quality-value').text() === 'normal') {
-    $(this).siblings('.quality-value').text(qualityArray[1]);
-    downQualityParse.qualityNumber = 1;
-  } else if ($(this).siblings('.quality-value').text() === 'low') {
-    $(this).siblings('.quality-value').text(qualityArray[0]);
-    downQualityParse.qualityNumber = 0;
-  }
-  addToStorage(downQualityParse);
+  // if (upQualityParse.qualityNumber < 4) {
+   upQualityParse.qualityNumber = upQualityParse.qualityNumber + newIndex;
+  $(bubblevote).siblings('.quality-value').text(upQualityParse.quality[upQualityParse.qualityNumber]);
+  // } else {
+  //   upQualityParse.qualityNumber < 0;
+  // }
+    return upQualityParse;
 }
 
 function Card (title, body) {
@@ -109,6 +87,7 @@ function Card (title, body) {
   this.quality = ['none', 'low', 'normal', 'high', 'critical'];
   this.qualityNumber = 0;
   this.completed = false;
+  this.count = 0;
 };
 
 function prependCard (Card) {
@@ -139,6 +118,20 @@ function completedTask() {
   $(this).parent().addClass('strike-through');
   parsedToDo.completed = true;
   addToStorage(parsedToDo);
+}
+
+function completedTask() {
+  var strikeThru = $(this).parent().addClass('strike-through');
+  var taskParse = JSON.parse(localStorage.getItem(strikeThru));
+  addToStorage(taskParse);
+}
+
+function recentToDos() {
+  if (localStorage.length > 10) {
+    $('.newArticle').hide();
+      console.log($('.newArticle').hide());
+    (`<button class="show-more">Show more TODOs</button>`);
+  }
 }
 
 function addToStorage(object) {
