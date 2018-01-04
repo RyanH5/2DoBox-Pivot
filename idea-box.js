@@ -48,7 +48,7 @@ function editBody () {
   addToStorage(parsedContent);
 } 
 
-  function deleteBtn() {
+function deleteBtn() {
   $(this).parent('.newArticle').remove();
   var key = $(this).parent().attr('id');
   localStorage.removeItem(key);
@@ -60,30 +60,42 @@ function completedTask() {
   addToStorage(taskParse);
 }
 
-  function upvoteBtn() {
-  var qualityArray = ['swill', 'plausible', 'genius'];
+function upvoteBtn() {
+  var qualityArray = ['none', 'low', 'normal', 'high', 'critical'];
   var key = $(this).parent().attr('id');
   var upQuality = localStorage.getItem(key);
   var upQualityParse = JSON.parse(upQuality);
-  if ($(this).siblings('.quality-value').text() === 'swill')  {
+  if ($(this).siblings('.quality-value').text() === 'none')  {
     $(this).siblings('.quality-value').text(qualityArray[1]);
     upQualityParse.qualityNumber = 1;
-  } else if ($(this).siblings('.quality-value').text() === 'plausible') {
+  } else if ($(this).siblings('.quality-value').text() === 'low') {
     $(this).siblings('.quality-value').text(qualityArray[2])
     upQualityParse.qualityNumber = 2;
+  } else if ($(this).siblings('.quality-value').text() === 'normal') {
+    $(this).siblings('.quality-value').text(qualityArray[3])
+    upQualityParse.qualityNumber = 3;
+  } else if ($(this).siblings('.quality-value').text() === 'high') {
+    $(this).siblings('.quality-value').text(qualityArray[4])
+    upQualityParse.qualityNumber = 4;
   }
-  addToStorage(upQualityParse);
+addToStorage(upQualityParse);
 };
 
-  function downvoteBtn() {
-  var qualityArray = ['swill', 'plausible', 'genius'];
+function downvoteBtn() {
+  var qualityArray = ['none', 'low', 'normal', 'high', 'critical'];
   var key = $(this).parent().attr('id');
   var downQuality = localStorage.getItem(key);
   var downQualityParse = JSON.parse(downQuality);
-  if ($(this).siblings('.quality-value').text() === 'genius') {
+  if ($(this).siblings('.quality-value').text() === 'critical') {
+    $(this).siblings('.quality-value').text(qualityArray[3]);
+    downQualityParse.qualityNumber = 3;
+  } else if ($(this).siblings('.quality-value').text() === 'high') {
+    $(this).siblings('.quality-value').text(qualityArray[2]);
+    downQualityParse.qualityNumber = 2;
+  } else if ($(this).siblings('.quality-value').text() === 'normal') {
     $(this).siblings('.quality-value').text(qualityArray[1]);
     downQualityParse.qualityNumber = 1;
-  } else if ($(this).siblings('.quality-value').text() === 'plausible') {
+  } else if ($(this).siblings('.quality-value').text() === 'low') {
     $(this).siblings('.quality-value').text(qualityArray[0]);
     downQualityParse.qualityNumber = 0;
   }
@@ -94,7 +106,7 @@ function Card (title, body) {
   this.title = title;
   this.body = body;
   this.uniqueId = $.now();
-  this.quality = ['swill', 'plausible', 'genius'];
+  this.quality = ['none', 'low', 'normal', 'high', 'critical'];
   this.qualityNumber = 0;
   this.completed = false;
 };
@@ -107,7 +119,7 @@ function prependCard (Card) {
     <p class="card-input-body" contenteditable="true">${Card.body}</p>
     <input type="image" src="images/upvote.svg" class="upvote-btn" alt="upvote-button">
     <input type="image" src="images/downvote.svg" class="downvote-btn" alt="downvote-button">
-    <p class="quality-title">quality:</p>
+    <p class="quality-title">importance:</p>
     <p class="quality-value">${Card.quality[Card.qualityNumber]}</p>
     <button class="completed-task">Completed Task</button>
     <hr>
