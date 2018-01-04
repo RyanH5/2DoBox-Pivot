@@ -43,8 +43,8 @@ function searchBar() {
 function completedTask() {
   var key = $(this).parent().attr('id');
   var parsedToDo = getFromStorage(key);
-  $(this).parent().addClass('strike-through');
-  parsedToDo.completed = true;
+  $(this).parent().toggleClass('strike-through');
+  parsedToDo.completed = !parsedToDo.completed;
   addToStorage(parsedToDo);
 }
 
@@ -64,23 +64,14 @@ function editBody () {
 
 function upvoteBtn() {
   var increaseImportance = this;
-  var upQualityParse = changeVote(increaseImportance, 1);
-  addToStorage(upQualityParse);
+  var increaseParse = changeVote(increaseImportance, 1);
+  addToStorage(increaseParse);
 }
 
 function downvoteBtn() {
   var decreaseImportance = this;
-  var upQualityParse = changeVote(decreaseImportance, -1);
-  addToStorage(upQualityParse);
-}
-
-function changeVote(changeImportance, newIndex) {
-  var key = $(changeImportance).parent().attr('id');
-  var upQuality = localStorage.getItem(key);
-  var upQualityParse = JSON.parse(upQuality);
-  upQualityParse.qualityNumber = upQualityParse.qualityNumber + newIndex;
-  $(changeImportance).siblings('.impt-value').text(upQualityParse.quality[upQualityParse.qualityNumber]);
-  return upQualityParse;
+  var decreaseParse = changeVote(decreaseImportance, -1);
+  addToStorage(decreaseParse);
 }
 
 function deleteBtn() {
@@ -89,12 +80,21 @@ function deleteBtn() {
   localStorage.removeItem(key);
 }
 
+function changeVote(changeImportance, newIndex) {
+  var key = $(changeImportance).parent().attr('id');
+  var imptValue = localStorage.getItem(key);
+  var imptParse = JSON.parse(imptValue);
+  imptParse.imptNum = imptParse.imptNum + newIndex;
+  $(changeImportance).siblings('.impt-value').text(imptParse.impt[imptParse.imptNum]);
+  return imptParse;
+}
+
 function Card (title, body) {
   this.title = title;
   this.body = body;
   this.uniqueId = $.now();
-  this.quality = ['none', 'low', 'normal', 'high', 'critical'];
-  this.qualityNumber = 0;
+  this.impt = ['none', 'low', 'normal', 'high', 'critical'];
+  this.imptNum = 0;
   this.completed = false;
   this.count = 0;
 };
@@ -108,7 +108,7 @@ function prependCard (Card) {
     <input type="image" src="images/upvote.svg" class="upvote-btn" alt="upvote-button">
     <input type="image" src="images/downvote.svg" class="downvote-btn" alt="downvote-button">
     <p class="impt-title">importance:</p>
-    <p class="impt-value">${Card.quality[Card.qualityNumber]}</p>
+    <p class="impt-value">${Card.impt[Card.imptNum]}</p>
     <button class="completed-task">Completed Task</button>
     <hr>
     </article>`)
@@ -141,7 +141,7 @@ function loadAllCards(event) {
     var loadObject = JSON.parse(getObject);
     if (loadObject.completed === true) {
       prependCard(loadObject);
-      $(`#${loadObject.uniqueId}`).addClass('strike-through');
+      $(`#${loadObject.uniqueId}`).toggleClass('strike-through');
     }
   }
 }
